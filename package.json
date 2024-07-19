@@ -1,7 +1,7 @@
 {
-	"name": "eslint-plugin-pair-tohavebeencalledwith-tohavebeencalledtimes",
+	"name": "eslint-plugin-pair-calledwith-calledtimes",
 	"version": "1.0.0",
-	"description": "good practice to use toHaveBeenCalledWith with toHaveBeenCalledTimes",
+	"description": "good to use toHaveBeenCalledTimes when using toHaveBeenCalledWith",
 	"keywords": [
 		"eslint",
 		"eslintplugin",

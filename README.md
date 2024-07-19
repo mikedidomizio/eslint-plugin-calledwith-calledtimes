@@ -52,6 +52,8 @@ TODO: Run eslint-doc-generator to generate the configs list (or delete this sect
 
 <!-- begin auto-generated rules list -->
 
-TODO: Run eslint-doc-generator to generate the rules list.
+| Name                       | Description                                                                                   |
+| :------------------------- | :-------------------------------------------------------------------------------------------- |
+| [jest](docs/rules/jest.md) | Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes` |
 
 <!-- end auto-generated rules list -->
