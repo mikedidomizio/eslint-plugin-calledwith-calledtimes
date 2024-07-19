@@ -17,13 +17,13 @@ ruleTester.run('jest', rules.rules['jest'], {
 			expect('foo').toHaveBeenCalledWith('bar')
 			expect('foo').toHaveBeenCalled()
 		`,
-		errors: [{message: "Pairing toHaveBeenCalledWith with toHaveBeenCalledTimes ensures that a function is called with a specific set of arguments, a specific amount of times. This ensures that a function is called no more or no less than what is expected."}],
+		errors: [{message: "Adding `.toHaveBeenCalledTimes()` after `toHaveBeenCalledWith()` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected."}],
 	},
 	// expecting toHaveBeenCalledTimes to be after toHaveBeenCalledWith (no node after)
 	{
 		code: `
 			expect('foo').toHaveBeenCalledWith('bar')
 		`,
-		errors: [{message: "Pairing toHaveBeenCalledWith with toHaveBeenCalledTimes ensures that a function is called with a specific set of arguments, a specific amount of times. This ensures that a function is called no more or no less than what is expected."}],
+		errors: [{message: "Adding `.toHaveBeenCalledTimes()` after `toHaveBeenCalledWith()` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected."}],
 	}]
 })
