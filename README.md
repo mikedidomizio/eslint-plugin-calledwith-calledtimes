@@ -1,7 +1,10 @@
-# eslint-plugin-pair-tohavebeencalledwith-tohavebeencalledtimes
+# eslint-plugin-pair-calledwith-calledtimes
 
-It's good practice to use toHaveBeenCalledWith with toHaveBeenCalledTimes to ensure your function is called the expected
-amount of times.
+This plugin checks your test matchers (jasmine, jest, vitest) when
+`toHaveBeenCalledWith` is used, and let&apos;s you know you should follow it with `toHaveBeenCalledTimes`
+
+The purpose of this is to ensure that not only our function is called with arguments,
+but _it is called the exact amount of times that we expected_.
 
 [Inspiration](https://twitter.com/kentcdodds/status/1162098139609698304)
 
@@ -13,20 +16,20 @@ You'll first need to install [ESLint](https://eslint.org/):
 npm i eslint --save-dev
 ```
 
-Next, install `eslint-plugin-pair-tohavebeencalledwith-tohavebeencalledtimes`:
+Next, install `eslint-plugin-pair-calledwith-calledtimes`:
 
 ```sh
-npm install eslint-plugin-pair-tohavebeencalledwith-tohavebeencalledtimes --save-dev
+npm install eslint-plugin-pair-calledwith-calledtimes --save-dev
 ```
 
 ## Usage
 
-Add `pair-tohavebeencalledwith-tohavebeencalledtimes` to the plugins section of your `.eslintrc` configuration file. You
+Add `pair-calledwith-calledtimes` to the plugins section of your `.eslintrc` configuration file. You
 can omit the `eslint-plugin-` prefix:
 
 ```json
 {
-	"plugins": ["pair-tohavebeencalledwith-tohavebeencalledtimes"]
+	"plugins": ["pair-calledwith-calledtimes"]
 }
 ```
 
@@ -35,7 +38,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
 	"rules": {
-		"pair-tohavebeencalledwith-tohavebeencalledtimes/rule-name": 2
+		"pair-calledwith-calledtimes/jest": "warn"
 	}
 }
 ```
