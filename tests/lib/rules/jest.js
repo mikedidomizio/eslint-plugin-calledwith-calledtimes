@@ -8,6 +8,7 @@ const message = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenCalledWit
 ruleTester.run('jest', rules.rules['jest'], {
 	valid: [
 		{
+			name: 'toHaveBeenCalledTimes is used after toHaveBeenCalledWith',
 			code: `
 				expect('foo').toHaveBeenCalledWith('bar')
 				expect('foo').toHaveBeenCalledTimes(1)
@@ -16,7 +17,7 @@ ruleTester.run('jest', rules.rules['jest'], {
 	],
 	invalid: [
 		{
-			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith (not expected node after)',
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith (not correct node after)',
 			code: `
 			expect('foo').toHaveBeenCalledWith('bar')
 			expect('foo').toHaveBeenCalled()
@@ -28,6 +29,14 @@ ruleTester.run('jest', rules.rules['jest'], {
 			code: `
 			expect('foo').toHaveBeenCalledWith('bar')
 		`,
+			errors: [{ message }],
+		},
+		{
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith, and not before',
+			code: `
+				expect('foo').toHaveBeenCalledTimes(1)
+				expect('foo').toHaveBeenCalledWith('bar')
+			`,
 			errors: [{ message }],
 		},
 	],
