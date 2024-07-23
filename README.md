@@ -1,12 +1,51 @@
-# eslint-plugin-pair-calledwith-calledtimes
+# eslint-plugin-calledwith-calledtimes
+
+## Description
 
 This plugin checks your test matchers (jasmine, jest, vitest) when
-`toHaveBeenCalledWith` is used, and let&apos;s you know you should follow it with `toHaveBeenCalledTimes`
+`toHaveBeenCalledWith` is used, and let&apos;s you know you should pair it with `toHaveBeenCalledTimes`.
 
 The purpose of this is to ensure that not only our function is called with arguments,
 but _it is called the exact amount of times that we expected_.
 
+## Loose Checking
+
+- `toHaveBeenCalledWith` checks that a function was called with specific arguments
+- `toHaveBeenCalledTimes` checks that a function was called an expected amount of times
+
+```tsx
+expect(consoleSpy).toHaveBeenCalledWith("sending");
+expect(consoleSpy).toHaveBeenCalledWith("cancelling");
+```
+
+This doesn't check that the function was called the amount of times we expected it to be called.
+
+```diff
+expect(consoleSpy).toHaveBeenCalledWith("sending");
+expect(consoleSpy).toHaveBeenCalledWith("cancelling");
++ expect(consoleSpy).toHaveBeenCalledTimes(2);
+```
+
+Now if `consoleSpy` happens to accidentally get called more than we expected, it will error.
+
+This gives us confidence that our code works exactly as expected.
+
+## Granular Checking
+
+- `toHaveBeenNthCalledWith` checks that a function was called with specific arguments on the nth time the function was called
+- `toHaveBeenCalledTimes` checks that a function was called an expected amount of times
+
+```tsx
+expect(consoleSpy).toHaveBeenNthCalledWith(1, "sending");
+expect(consoleSpy).toHaveBeenNthCalledWith(2, "cancelling");
+expect(consoleSpy).toHaveBeenCalledTimes(2);
+```
+
 [Inspiration](https://twitter.com/kentcdodds/status/1162098139609698304)
+
+> [!NOTE]  
+> Currently, this has only been tested with `jest` but it should work with other test frameworks
+> like `jasmine` and `vitest`. Please let me know if it works with these.
 
 ## Installation
 
@@ -16,10 +55,10 @@ You'll first need to install [ESLint](https://eslint.org/):
 npm i eslint --save-dev
 ```
 
-Next, install `eslint-plugin-pair-calledwith-calledtimes`:
+Next, install `eslint-plugin-calledwith-calledtimes`:
 
 ```sh
-npm install eslint-plugin-pair-calledwith-calledtimes --save-dev
+npm install eslint-plugin-calledwith-calledtimes --save-dev
 ```
 
 ## Usage
@@ -32,6 +71,8 @@ can omit the `eslint-plugin-` prefix:
 	"plugins": ["pair-calledwith-calledtimes"]
 }
 ```
+
+This only needs to run against
 
 Then configure the rules you want to use under the rules section.
 
