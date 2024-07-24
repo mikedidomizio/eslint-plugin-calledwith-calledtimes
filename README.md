@@ -3,9 +3,9 @@
 ## Description
 
 This plugin checks your test matchers (jasmine, jest, vitest) when
-`toHaveBeenCalledWith` is used, and let&apos;s you know you should pair it with `toHaveBeenCalledTimes`.
+`toHaveBeenCalledWith` is used, and reports if it is not paired with `toHaveBeenCalledTimes`.
 
-The purpose of this is to ensure that not only our function is called with arguments,
+The idea of this is to ensure that not only that our function is called with arguments,
 but _it is called the exact amount of times that we expected_.
 
 ## Loose Checking
@@ -14,19 +14,19 @@ but _it is called the exact amount of times that we expected_.
 - `toHaveBeenCalledTimes` checks that a function was called an expected amount of times
 
 ```tsx
-expect(consoleSpy).toHaveBeenCalledWith("sending");
-expect(consoleSpy).toHaveBeenCalledWith("cancelling");
+expect(fnSpy).toHaveBeenCalledWith("sending");
+expect(fnSpy).toHaveBeenCalledWith("cancelling");
 ```
 
 This doesn't check that the function was called the amount of times we expected it to be called.
 
 ```diff
-expect(consoleSpy).toHaveBeenCalledWith("sending");
-expect(consoleSpy).toHaveBeenCalledWith("cancelling");
-+ expect(consoleSpy).toHaveBeenCalledTimes(2);
+expect(fnSpy).toHaveBeenCalledWith("sending");
+expect(fnSpy).toHaveBeenCalledWith("cancelling");
++ expect(fnSpy).toHaveBeenCalledTimes(2);
 ```
 
-Now if `consoleSpy` happens to accidentally get called more than we expected, it will error.
+Now if `fnSpy` happens to accidentally get called more or less than we expected, it will result in a test failure.
 
 This gives us confidence that our code works exactly as expected.
 
@@ -36,29 +36,23 @@ This gives us confidence that our code works exactly as expected.
 - `toHaveBeenCalledTimes` checks that a function was called an expected amount of times
 
 ```tsx
-expect(consoleSpy).toHaveBeenNthCalledWith(1, "sending");
-expect(consoleSpy).toHaveBeenNthCalledWith(2, "cancelling");
-expect(consoleSpy).toHaveBeenCalledTimes(2);
+expect(fnSpy).toHaveBeenNthCalledWith(1, "sending");
+expect(fnSpy).toHaveBeenNthCalledWith(2, "cancelling");
+expect(fnSpy).toHaveBeenCalledTimes(2);
 ```
 
-[Inspiration](https://twitter.com/kentcdodds/status/1162098139609698304)
+## Inspiration
 
-> [!NOTE]  
-> Currently, this has only been tested with `jest` but it should work with other test frameworks
-> like `jasmine` and `vitest`. Please let me know if it works with these.
+I'm not entirely sure if it was because it just made sense to check, or if it was a result of issues in my code,
+but at some point I started pairing these matchers with `toHaveBeenCalledTimes`.
+
+I thought that it was strange there wasn't a matcher already for this (since then I've come to terms it may be too specific of a matcher, there's many of those), 
+and in my search out there for answers, I found that [Kent C. Dodds](https://twitter.com/kentcdodds/status/1162098139609698304) also had similar thoughts that they should be paired.
 
 ## Installation
 
-You'll first need to install [ESLint](https://eslint.org/):
-
 ```sh
-npm i eslint --save-dev
-```
-
-Next, install `eslint-plugin-calledwith-calledtimes`:
-
-```sh
-npm install eslint-plugin-calledwith-calledtimes --save-dev
+npm install eslint eslint-plugin-calledwith-calledtimes --save-dev
 ```
 
 ## Usage
@@ -72,8 +66,6 @@ can omit the `eslint-plugin-` prefix:
 }
 ```
 
-This only needs to run against
-
 Then configure the rules you want to use under the rules section.
 
 ```json
@@ -84,13 +76,8 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
-## Configurations
-
-<!-- begin auto-generated configs list -->
-
-TODO: Run eslint-doc-generator to generate the configs list (or delete this section if no configs are offered).
-
-<!-- end auto-generated configs list -->
+> [!NOTE]  
+> This only needs to run against test files, this can be done with [files](https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores)
 
 ## Rules
 
