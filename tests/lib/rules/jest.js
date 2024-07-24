@@ -41,3 +41,40 @@ ruleTester.run('jest', rules.rules['jest'], {
 		},
 	],
 });
+
+ruleTester.run('jest', rules.rules['jest'], {
+	valid: [
+		{
+			name: 'toHaveBeenCalledTimes is used after toHaveBeenNthCalledTimes',
+			code: `
+				expect('foo').toHaveBeenNthCalledWith('bar')
+				expect('foo').toHaveBeenCalledTimes(1)
+			`,
+		},
+	],
+	invalid: [
+		{
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes (not correct node after)',
+			code: `
+			expect('foo').toHaveBeenNthCalledWith('bar')
+			expect('foo').toHaveBeenCalled()
+		`,
+			errors: [{ message }],
+		},
+		{
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes (no node after)',
+			code: `
+			expect('foo').toHaveBeenNthCalledWith('bar')
+		`,
+			errors: [{ message }],
+		},
+		{
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes, and not before',
+			code: `
+				expect('foo').toHaveBeenCalledTimes(1)
+				expect('foo').toHaveBeenNthCalledWith('bar')
+			`,
+			errors: [{ message }],
+		},
+	],
+});
