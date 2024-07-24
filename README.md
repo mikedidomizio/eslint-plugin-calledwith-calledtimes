@@ -71,6 +71,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
 	"rules": {
+		// although the rule is called jest, it should work with vitest/jasmine
 		"calledwith-calledtimes/jest": "warn"
 	}
 }
