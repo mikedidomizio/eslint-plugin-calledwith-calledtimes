@@ -3,7 +3,8 @@ const RuleTester = require('eslint').RuleTester;
 
 const ruleTester = new RuleTester();
 
-const message = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
+const calledMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
+const nthCalledMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenNthCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
 
 ruleTester.run('jest', rules.rules['jest'], {
 	valid: [
@@ -22,14 +23,14 @@ ruleTester.run('jest', rules.rules['jest'], {
 			expect('foo').toHaveBeenCalledWith('bar')
 			expect('foo').toHaveBeenCalled()
 		`,
-			errors: [{ message }],
+			errors: [{ message: calledMessage }],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith (no node after)',
 			code: `
 			expect('foo').toHaveBeenCalledWith('bar')
 		`,
-			errors: [{ message }],
+			errors: [{ message: calledMessage }],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith, and not before',
@@ -37,7 +38,7 @@ ruleTester.run('jest', rules.rules['jest'], {
 				expect('foo').toHaveBeenCalledTimes(1)
 				expect('foo').toHaveBeenCalledWith('bar')
 			`,
-			errors: [{ message }],
+			errors: [{ message: calledMessage }],
 		},
 	],
 });
@@ -59,14 +60,14 @@ ruleTester.run('jest', rules.rules['jest'], {
 			expect('foo').toHaveBeenNthCalledWith('bar')
 			expect('foo').toHaveBeenCalled()
 		`,
-			errors: [{ message }],
+			errors: [{ message: nthCalledMessage }],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes (no node after)',
 			code: `
 			expect('foo').toHaveBeenNthCalledWith('bar')
 		`,
-			errors: [{ message }],
+			errors: [{ message: nthCalledMessage }],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes, and not before',
@@ -74,7 +75,7 @@ ruleTester.run('jest', rules.rules['jest'], {
 				expect('foo').toHaveBeenCalledTimes(1)
 				expect('foo').toHaveBeenNthCalledWith('bar')
 			`,
-			errors: [{ message }],
+			errors: [{ message: nthCalledMessage }],
 		},
 	],
 });
