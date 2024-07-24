@@ -40,6 +40,19 @@ ruleTester.run('jest', rules.rules['jest'], {
 			`,
 			errors: [{ message: calledMessage }],
 		},
+		{
+			name: 'custom error message',
+			options: [{
+				toHaveBeenCalledWith: {
+					reportMessage: 'Please put them in the order we expect'
+				}
+			}],
+			code: `
+				expect('foo').toHaveBeenCalledTimes(1)
+				expect('foo').toHaveBeenCalledWith('bar')
+			`,
+			errors: [{ message: 'Please put them in the order we expect' }],
+		},
 	],
 });
 
@@ -76,6 +89,19 @@ ruleTester.run('jest', rules.rules['jest'], {
 				expect('foo').toHaveBeenNthCalledWith('bar')
 			`,
 			errors: [{ message: nthCalledMessage }],
+		},
+		{
+			name: 'custom error message',
+			options: [{
+				toHaveBeenNthCalledWith: {
+					reportMessage: 'Please put them in the order we expect'
+				}
+			}],
+			code: `
+				expect('foo').toHaveBeenCalledTimes(1)
+				expect('foo').toHaveBeenNthCalledWith('bar')
+			`,
+			errors: [{ message: 'Please put them in the order we expect' }],
 		},
 	],
 });
