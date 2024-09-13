@@ -14,8 +14,8 @@ but _it is called the exact amount of times that we expected_.
 - `toHaveBeenCalledTimes` checks that a function was called an expected amount of times
 
 ```tsx
-expect(consoleSpy).toHaveBeenCalledWith("sending");
-expect(consoleSpy).toHaveBeenCalledWith("cancelling");
+expect(consoleSpy).toHaveBeenCalledWith('sending');
+expect(consoleSpy).toHaveBeenCalledWith('cancelling');
 ```
 
 This doesn't check that the function was called the amount of times we expected it to be called.
@@ -36,8 +36,8 @@ This gives us confidence that our code works exactly as expected.
 - `toHaveBeenCalledTimes` checks that a function was called an expected amount of times
 
 ```tsx
-expect(consoleSpy).toHaveBeenNthCalledWith(1, "sending");
-expect(consoleSpy).toHaveBeenNthCalledWith(2, "cancelling");
+expect(consoleSpy).toHaveBeenNthCalledWith(1, 'sending');
+expect(consoleSpy).toHaveBeenNthCalledWith(2, 'cancelling');
 expect(consoleSpy).toHaveBeenCalledTimes(2);
 ```
 
@@ -79,7 +79,8 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
 	"rules": {
-		"calledwith-calledtimes/jest": "warn"
+		"calledwith-calledtimes/toHaveBeenCalledWith": "warn",
+		"calledwith-calledtimes/toHaveBeenNthCalledWith": "warn"
 	}
 }
 ```
@@ -96,8 +97,9 @@ TODO: Run eslint-doc-generator to generate the configs list (or delete this sect
 
 <!-- begin auto-generated rules list -->
 
-| Name                       | Description                                                                                   |
-| :------------------------- | :-------------------------------------------------------------------------------------------- |
-| [jest](docs/rules/jest.md) | Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes` |
+| Name                                                             | Description                                                                                      |
+| :--------------------------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| [toHaveBeenCalledWith](docs/rules/toHaveBeenCalledWith.md)       | Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes`    |
+| [toHaveBeenNthCalledWith](docs/rules/toHaveBeenNthCalledWith.md) | Ensures that using test matcher `toHaveBeenNthCalledWith` is followed by `toHaveBeenCalledTimes` |
 
 <!-- end auto-generated rules list -->

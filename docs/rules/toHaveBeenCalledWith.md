@@ -1,4 +1,4 @@
-# Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes` (`calledwith-calledtimes/jest`)
+# Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes` (`calledwith-calledtimes/toHaveBeenCalledWith`)
 
 <!-- end auto-generated rule header -->
 
