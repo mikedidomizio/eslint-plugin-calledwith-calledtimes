@@ -21,6 +21,7 @@
 		"lint:eslint-docs": "npm-run-all \"update:eslint-docs -- --check\"",
 		"lint:js": "eslint .",
 		"test": "mocha tests --recursive",
+		"test:watch": "npm run test -- --watch",
 		"update:eslint-docs": "eslint-doc-generator",
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write ."
