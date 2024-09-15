@@ -43,9 +43,13 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['toHaveBeenNthCalledWith']
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes, and not before',
 			code: `
 				expect('foo').toHaveBeenCalledTimes(1)
-				expect('foo').toHaveBeenNthCalledWith(1, 'bar')
+				expect('foo').toHaveBeenNthCalledWith(1, 'bar');
 			`,
-			errors: [{ message: missingCalledTimesMessage }],
+			output: `
+				expect('foo').toHaveBeenNthCalledWith(1, 'bar');
+				expect('foo').toHaveBeenCalledTimes(1)
+			`,
+			errors: [{ message: missingCalledWithMessage }],
 		},
 		{
 			name: 'custom error message',
@@ -55,8 +59,12 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['toHaveBeenNthCalledWith']
 				},
 			],
 			code: `
-				expect('foo').toHaveBeenCalledTimes(1)
-				expect('foo').toHaveBeenNthCalledWith(1, 'bar')
+				expect('foo').toHaveBeenCalledTimes(1);
+				expect('foo').toHaveBeenNthCalledWith(1, 'bar');
+			`,
+			output: `
+				expect('foo').toHaveBeenNthCalledWith(1, 'bar');
+				expect('foo').toHaveBeenCalledTimes(1);
 			`,
 			errors: [{ message: 'Please put them in the order we expect' }],
 		},
