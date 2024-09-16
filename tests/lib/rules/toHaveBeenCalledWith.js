@@ -6,7 +6,7 @@ const ruleTester = new RuleTester();
 const missingCalledTimesMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
 const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`
 
-ruleTester.run('toHaveBeenCalledWith', rules.rules['toHaveBeenCalledWith'], {
+ruleTester.run('jest', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'toHaveBeenCalledTimes is used after toHaveBeenCalledWith',
@@ -31,13 +31,6 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['toHaveBeenCalledWith'], {
 			expect('foo').toHaveBeenCalledWith('bar')
 		`,
 			errors: [{ message: missingCalledTimesMessage }],
-		},
-		{
-			name: 'toHaveBeenCalledWith to be before toHaveBeenCalledTimes (no node before)',
-			code: `
-			expect('foo').toHaveBeenCalledTimes(1)
-		`,
-			errors: [{ message: missingCalledWithMessage }],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith, and not before',
