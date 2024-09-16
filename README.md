@@ -97,9 +97,10 @@ TODO: Run eslint-doc-generator to generate the configs list (or delete this sect
 
 <!-- begin auto-generated rules list -->
 
-| Name                                                             | Description                                                                                      |
-| :--------------------------------------------------------------- | :----------------------------------------------------------------------------------------------- |
-| [toHaveBeenCalledWith](docs/rules/toHaveBeenCalledWith.md)       | Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes`    |
-| [toHaveBeenNthCalledWith](docs/rules/toHaveBeenNthCalledWith.md) | Ensures that using test matcher `toHaveBeenNthCalledWith` is followed by `toHaveBeenCalledTimes` |
+🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
+
+| Name                       | Description                                                                                   | 🔧 |
+| :------------------------- | :-------------------------------------------------------------------------------------------- | :- |
+| [jest](docs/rules/jest.md) | Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes` | 🔧 |
 
 <!-- end auto-generated rules list -->
