@@ -1,3 +1,8 @@
+## 1.2.0 (2024-09-16)
+
+- Autofix lines that are out of order for `toHaveBeenCalledWith`
+- Autofix lines that are out of order for `toHaveBeenNthCalledWith`
+
 ## 1.1.0 (2024-07-23)
 
 - Add expects `toHaveBeenNthCalledWith` followed by `toHaveBeenCalledTimes`
