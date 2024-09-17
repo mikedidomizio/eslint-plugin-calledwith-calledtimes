@@ -6,13 +6,15 @@ const ruleTester = new RuleTester();
 const missingCalledTimesMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
 const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`
 
+const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`
+
 ruleTester.run('jest', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'toHaveBeenCalledTimes is used after toHaveBeenCalledWith',
 			code: `
-				expect('foo').toHaveBeenCalledWith('bar')
-				expect('foo').toHaveBeenCalledTimes(1)
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(foo).toHaveBeenCalledTimes(1)
 			`,
 		},
 	],
@@ -20,27 +22,27 @@ ruleTester.run('jest', rules.rules['jest'], {
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith (not correct node after)',
 			code: `
-			expect('foo').toHaveBeenCalledWith('bar')
-			expect('foo').toHaveBeenCalled()
+			expect(foo).toHaveBeenCalledWith('bar')
+			expect(foo).toHaveBeenCalled()
 		`,
 			errors: [{ message: missingCalledTimesMessage }],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith (no node after)',
 			code: `
-			expect('foo').toHaveBeenCalledWith('bar')
+			expect(foo).toHaveBeenCalledWith('bar')
 		`,
 			errors: [{ message: missingCalledTimesMessage }],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith, and not before',
 			code: `
-				expect('foo').toHaveBeenCalledTimes(1)
-				expect('foo').toHaveBeenCalledWith('bar');
+				expect(foo).toHaveBeenCalledTimes(1)
+				expect(foo).toHaveBeenCalledWith('bar');
 			`,
 			output: `
-				expect('foo').toHaveBeenCalledWith('bar');
-				expect('foo').toHaveBeenCalledTimes(1)
+				expect(foo).toHaveBeenCalledWith('bar');
+				expect(foo).toHaveBeenCalledTimes(1)
 			`,
 			errors: [{ message: missingCalledWithMessage }],
 		},
@@ -52,14 +54,22 @@ ruleTester.run('jest', rules.rules['jest'], {
 				},
 			],
 			code: `
-				expect('foo').toHaveBeenCalledTimes(1);
-				expect('foo').toHaveBeenCalledWith('bar');
+				expect(foo).toHaveBeenCalledTimes(1);
+				expect(foo).toHaveBeenCalledWith('bar');
 			`,
 			output: `
-				expect('foo').toHaveBeenCalledWith('bar');
-				expect('foo').toHaveBeenCalledTimes(1);
+				expect(foo).toHaveBeenCalledWith('bar');
+				expect(foo).toHaveBeenCalledTimes(1);
 			`,
 			errors: [{ message: 'Please put them in the order we expect' }],
 		},
+		{
+			name: 'expect arg must match arg of toHaveBeenCalledTimes',
+			code: `
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(hello).toHaveBeenCalledTimes(1)
+			`,
+			errors: [{ message: identifiersAreNotMatching }]
+		}
 	],
 });
