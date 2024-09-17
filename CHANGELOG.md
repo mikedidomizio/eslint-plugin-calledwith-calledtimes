@@ -1,3 +1,7 @@
+## 1.3.0 (2024-09-16)
+
+- Report if the `expect` function args do not match the other `expect` function args
+
 ## 1.2.0 (2024-09-16)
 
 - Autofix lines that are out of order for `toHaveBeenCalledWith`
