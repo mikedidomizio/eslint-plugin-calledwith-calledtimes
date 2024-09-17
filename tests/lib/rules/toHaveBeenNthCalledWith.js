@@ -222,14 +222,12 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 					},
 				},
 			],
-			// todo what happens if expect(ARG) is different here, does another test fail? I think it does?
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 		},
-		// todo if the number does not match (ex. 2=>3) it should fail, but does it?
 		{
 			name: 'if option false, will not report',
 			options: [
@@ -240,7 +238,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
-				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
