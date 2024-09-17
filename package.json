@@ -24,7 +24,8 @@
 		"test:watch": "npm run test -- --watch",
 		"update:eslint-docs": "eslint-doc-generator",
 		"prettier:check": "prettier --check .",
-		"prettier:write": "prettier --write ."
+		"prettier:write": "prettier --write .",
+		"stage": "npm run test && npm run prettier:write && npm run lint"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.0.0",
