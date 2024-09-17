@@ -75,62 +75,71 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 });
 
 ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
-	valid: [		{
-		name: 'expected number of toHaveBeenNthCalledWith matches toHaveBeenCalledTimes',
-		options: [
-			{
-				toHaveBeenNthCalledWith: {
-					strictNumberOfCalledWithMatchesCalledTimes: true,
-				}
-			},
-		],
-		code: `
-				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
-				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
-				expect(foo).toHaveBeenCalledTimes(2)
-			`,
-	}, {
-		name: 'if option false, will not report',
-		options: [
-			{
-				toHaveBeenNthCalledWith: {
-					strictNumberOfCalledWithMatchesCalledTimes: false,
-				}
-			},
-		],
-		code: `
-				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
-				expect(foo).toHaveBeenCalledTimes(2)
-			`,
-	}],
-	invalid: [{
-		name: 'expected number of toHaveBeenNthCalledWith doesn\'t match toHaveBeenCalledTimes (calledTimes: number)',
-		options: [
-			{
-				toHaveBeenNthCalledWith: {
-					strictNumberOfCalledWithMatchesCalledTimes: true,
-				}
-			},
-		],
-		code: `
-				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
-				expect(foo).toHaveBeenCalledTimes(2)
-			`,
-		errors: [{ message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`' }]
-	},
+	valid: [
 		{
-			name: 'expected number of toHaveBeenCalledWith doesn\'t match toHaveBeenCalledTimes (calledTimes: string)',
+			name: 'expected number of toHaveBeenNthCalledWith matches toHaveBeenCalledTimes',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
 						strictNumberOfCalledWithMatchesCalledTimes: true,
-					}
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+		},
+		{
+			name: 'if option false, will not report',
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: false,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+		},
+	],
+	invalid: [
+		{
+			name: "expected number of toHaveBeenNthCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: number)",
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: true,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+			errors: [
+				{ message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`' },
+			],
+		},
+		{
+			name: "expected number of toHaveBeenCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: true,
+					},
 				},
 			],
 			code: `
 				expect(foo).toHaveBeenCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes('2')
 			`,
-			errors: [{ message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`' }]
-		}]
-})
+			errors: [
+				{ message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`' },
+			],
+		},
+	],
+});
