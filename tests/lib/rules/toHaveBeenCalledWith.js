@@ -25,7 +25,12 @@ ruleTester.run('jest', rules.rules['jest'], {
 			expect(foo).toHaveBeenCalledWith('bar')
 			expect(foo).toHaveBeenCalled()
 		`,
-			errors: [{ message: missingCalledTimesMessage }],
+			errors: [{ 
+				message: missingCalledTimesMessage,           
+				type: "ExpressionStatement",
+				line: 3,
+				column: 4,
+			}],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith (no node after)',
