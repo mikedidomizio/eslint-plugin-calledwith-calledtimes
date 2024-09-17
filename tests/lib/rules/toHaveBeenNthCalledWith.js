@@ -125,7 +125,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			],
 		},
 		{
-			name: "expected number of toHaveBeenCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
+			name: "expected number of toHaveBeenNthCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -143,3 +143,58 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 		},
 	],
 });
+
+ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
+	valid: [
+		{
+			name: 'expected order of toHaveBeenNthCalledWith',
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictOrderOfNthCalledWith: true,
+					},
+				},
+			],
+			// todo what happens if expect(ARG) is different here, does another test fail? I think it does?
+			code: `
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+		},
+		// todo if the number does not match (ex. 2=>3) it should fail, but does it?
+		{
+			name: 'if option false, will not report',
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictOrderOfNthCalledWith: false,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+		},
+	],
+	invalid: [{
+		name: "expected number of toHaveBeenNthCalledWith is not ordered",
+		options: [
+			{
+				toHaveBeenNthCalledWith: {
+					strictOrderOfNthCalledWith: true,
+				},
+			},
+		],
+		code: `
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+		errors: [
+			{ message: 'Please order the `toHaveBeenNthCalledWith` numerically' },
+		],
+	}]
+})
