@@ -27,17 +27,31 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes (not correct node after)',
 			code: `
-			expect(foo).toHaveBeenNthCalledWith(1, 'bar')
-			expect(foo).toHaveBeenCalled()
-		`,
-			errors: [{ message: missingCalledTimesMessage }],
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenCalled()
+			`,
+			errors: [
+				{
+					message: missingCalledTimesMessage,
+					type: 'ExpressionStatement',
+					line: 3,
+					column: 5,
+				},
+			],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes (no node after)',
 			code: `
-			expect(foo).toHaveBeenNthCalledWith(1, 'bar')
-		`,
-			errors: [{ message: missingCalledTimesMessage }],
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+			`,
+			errors: [
+				{
+					message: missingCalledTimesMessage,
+					type: 'ExpressionStatement',
+					line: 2,
+					column: 5,
+				},
+			],
 		},
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes, and not before',
@@ -49,7 +63,14 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 				expect(foo).toHaveBeenCalledTimes(1)
 			`,
-			errors: [{ message: missingCalledWithMessage }],
+			errors: [
+				{
+					message: missingCalledWithMessage,
+					type: 'ExpressionStatement',
+					line: 2,
+					column: 5,
+				},
+			],
 		},
 		{
 			name: 'custom error message',
@@ -66,7 +87,14 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 				expect(foo).toHaveBeenCalledTimes(1);
 			`,
-			errors: [{ message: 'Please put them in the order we expect' }],
+			errors: [
+				{
+					message: 'Please put them in the order we expect',
+					type: 'ExpressionStatement',
+					line: 2,
+					column: 5,
+				},
+			],
 		},
 		{
 			name: 'expect arg of expect, must match arg of other expect',
@@ -74,7 +102,14 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(hello).toHaveBeenCalledTimes(1)
 			`,
-			errors: [{ message: identifiersAreNotMatching }],
+			errors: [
+				{
+					message: identifiersAreNotMatching,
+					type: 'ExpressionStatement',
+					line: 3,
+					column: 5,
+				},
+			],
 		},
 	],
 });
