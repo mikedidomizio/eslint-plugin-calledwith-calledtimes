@@ -1,5 +1,7 @@
 # eslint-plugin-calledwith-calledtimes
 
+![Tests workflow](https://github.com/mikedidomizio/eslint-plugin-calledwith-calledtimes/actions/workflows/run-tests.yml/badge.svg)
+
 ## Description
 
 This plugin checks your test matchers (jasmine, jest, vitest) when
