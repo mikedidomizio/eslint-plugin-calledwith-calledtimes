@@ -79,7 +79,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
 	"rules": {
-		"calledwith-calledtimes/jest": "warn",
+		"calledwith-calledtimes/jest": "warn"
 	}
 }
 ```

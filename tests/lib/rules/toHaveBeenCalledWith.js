@@ -4,9 +4,9 @@ const RuleTester = require('eslint').RuleTester;
 const ruleTester = new RuleTester();
 
 const missingCalledTimesMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
-const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`
+const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
 
-const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`
+const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`;
 
 ruleTester.run('jest', rules.rules['jest'], {
 	valid: [
@@ -69,7 +69,7 @@ ruleTester.run('jest', rules.rules['jest'], {
 				expect(foo).toHaveBeenCalledWith('bar')
 				expect(hello).toHaveBeenCalledTimes(1)
 			`,
-			errors: [{ message: identifiersAreNotMatching }]
-		}
+			errors: [{ message: identifiersAreNotMatching }],
+		},
 	],
 });
