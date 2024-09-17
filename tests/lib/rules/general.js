@@ -11,9 +11,16 @@ ruleTester.run('jest', rules.rules['jest'], {
 		{
 			name: 'Missing toHaveBeenCalledWith/toHaveBeenNthCalledWith (no node before)',
 			code: `
-			expect('foo').toHaveBeenCalledTimes(1)
-		`,
-			errors: [{ message: missingCalledWithMessage }],
+				expect('foo').toHaveBeenCalledTimes(1)
+			`,
+			errors: [
+				{
+					message: missingCalledWithMessage,
+					type: 'ExpressionStatement',
+					line: 2,
+					column: 5,
+				},
+			],
 		},
 	],
 });
