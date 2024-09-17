@@ -8,6 +8,11 @@ const missingCalledWithMessage = `Adding \`.toHaveBeenNthCalledWith()\` before \
 
 const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`;
 
+const missingExpectedToHaveBeenNthCalledWith =
+	'`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`';
+
+const outOfOrderNthCalledWith = 'Please order the `toHaveBeenNthCalledWith` numerically';
+
 ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 	valid: [
 		{
@@ -120,9 +125,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
-			errors: [
-				{ message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`' },
-			],
+			errors: [{ message: missingExpectedToHaveBeenNthCalledWith }],
 		},
 		{
 			name: "expected number of toHaveBeenNthCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
@@ -136,6 +139,22 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			code: `
 				expect(foo).toHaveBeenCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes('2')
+			`,
+			errors: [{ message: missingExpectedToHaveBeenNthCalledWith }],
+		},
+		{
+			name: 'expected the correct nodes toHaveBeenNthCalledWith before',
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: true,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenCalled()
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
+				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 			errors: [
 				{ message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`' },
@@ -179,22 +198,22 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			`,
 		},
 	],
-	invalid: [{
-		name: "expected number of toHaveBeenNthCalledWith is not ordered",
-		options: [
-			{
-				toHaveBeenNthCalledWith: {
-					strictOrderOfNthCalledWith: true,
+	invalid: [
+		{
+			name: 'expected number of toHaveBeenNthCalledWith is not ordered',
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictOrderOfNthCalledWith: true,
+					},
 				},
-			},
-		],
-		code: `
+			],
+			code: `
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
-		errors: [
-			{ message: 'Please order the `toHaveBeenNthCalledWith` numerically' },
-		],
-	}]
-})
+			errors: [{ message: outOfOrderNthCalledWith }],
+		},
+	],
+});
