@@ -8,7 +8,7 @@ const missingCalledWithMessage = `Adding \`.toHaveBeenNthCalledWith()\` before \
 
 const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`;
 
-ruleTester.run('jest', rules.rules['jest'], {
+ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'toHaveBeenCalledTimes is used after toHaveBeenNthCalledTimes',

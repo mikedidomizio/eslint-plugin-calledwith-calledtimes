@@ -5,7 +5,7 @@ const ruleTester = new RuleTester();
 
 const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
 
-ruleTester.run('jest', rules.rules['jest'], {
+ruleTester.run('general', rules.rules['jest'], {
 	valid: [],
 	invalid: [
 		{
