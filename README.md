@@ -1,6 +1,6 @@
 # eslint-plugin-calledwith-calledtimes
 
-[![Tests Workflow](https://github.com/mikedidomizio/eslint-plugin-calledwith-calledtimes/actions/workflows/run-tests.yaml/badge.svg)](https://github.com/mikedidomizio/eslint-plugin-calledwith-calledtimes/actions/workflows/tests.yaml?query=branch%3Amain)
+[![Tests Workflow](https://github.com/mikedidomizio/eslint-plugin-calledwith-calledtimes/actions/workflows/tests.yaml/badge.svg)](https://github.com/mikedidomizio/eslint-plugin-calledwith-calledtimes/actions/workflows/tests.yaml?query=branch%3Amain)
 [![NPM Downloads](https://img.shields.io/npm/dm/eslint-plugin-calledwith-calledtimes)](https://www.npmjs.com/package/eslint-plugin-calledwith-calledtimes)
 
 ## Description
