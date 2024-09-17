@@ -64,7 +64,7 @@ ruleTester.run('jest', rules.rules['jest'], {
 			errors: [{ message: 'Please put them in the order we expect' }],
 		},
 		{
-			name: 'expect arg must match arg of toHaveBeenCalledTimes',
+			name: 'expect arg of expect, must match arg of other expect',
 			code: `
 				expect(foo).toHaveBeenCalledWith('bar')
 				expect(hello).toHaveBeenCalledTimes(1)
