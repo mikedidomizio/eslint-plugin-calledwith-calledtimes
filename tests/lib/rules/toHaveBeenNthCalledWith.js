@@ -231,7 +231,8 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
-				expect(foo).toHaveBeenCalledTimes(2)
+				expect(foo).toHaveBeenNthCalledWith(3, 'bar2')
+				expect(foo).toHaveBeenCalledTimes(3)
 			`,
 		},
 		{
@@ -246,6 +247,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar2')
+				expect(foo).toHaveBeenNthCalledWith(8, 'bar2')
 				expect(foo).toHaveBeenCalledTimes(3)
 			`,
 		},
@@ -259,15 +261,16 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
+				expect(foo).toHaveBeenNthCalledWith(9, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
-				expect(foo).toHaveBeenCalledTimes(2)
+				expect(foo).toHaveBeenCalledTimes(3)
 			`,
 		},
 	],
 	invalid: [
 		{
-			name: 'expected number of toHaveBeenNthCalledWith is not ordered',
+			name: 'expected toHaveBeenNthCalledWith to be ordered',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -277,19 +280,23 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			],
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(4, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
-				expect(foo).toHaveBeenCalledTimes(2)
+				expect(foo).toHaveBeenCalledTimes(4)
 			`,
 			output: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
-				expect(foo).toHaveBeenCalledTimes(2)
+				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(4, 'bar')
+				expect(foo).toHaveBeenCalledTimes(4)
 			`,
 			errors: [
 				{
 					message: outOfOrderNthCalledWith,
 					type: 'ExpressionStatement',
-					line: 2,
+					line: 4,
 					column: 5,
 				},
 			],
