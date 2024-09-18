@@ -160,12 +160,14 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
-			errors: [{
-				message: missingExpectedToHaveBeenNthCalledWith,
-				type: 'ExpressionStatement',
-				line: 3,
-				column: 5,
-			}],
+			errors: [
+				{
+					message: missingExpectedToHaveBeenNthCalledWith,
+					type: 'ExpressionStatement',
+					line: 3,
+					column: 5,
+				},
+			],
 		},
 		{
 			name: "expected number of toHaveBeenNthCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
@@ -180,12 +182,14 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes('2')
 			`,
-			errors: [{
-				message: missingExpectedToHaveBeenNthCalledWith,
-				type: 'ExpressionStatement',
-				line: 3,
-				column: 5,
-			}],
+			errors: [
+				{
+					message: missingExpectedToHaveBeenNthCalledWith,
+					type: 'ExpressionStatement',
+					line: 3,
+					column: 5,
+				},
+			],
 		},
 		{
 			name: 'expected the correct nodes toHaveBeenNthCalledWith before',
@@ -201,12 +205,14 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
-			errors: [{
-				message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`',
-				type: 'ExpressionStatement',
-				line: 4,
-				column: 5,
-			}],
+			errors: [
+				{
+					message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`',
+					type: 'ExpressionStatement',
+					line: 4,
+					column: 5,
+				},
+			],
 		},
 	],
 });
@@ -274,12 +280,19 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
-			errors: [{
-				message: outOfOrderNthCalledWith,
-				type: 'ExpressionStatement',
-				line: 2,
-				column: 5,
-			}],
+			output: `
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+			errors: [
+				{
+					message: outOfOrderNthCalledWith,
+					type: 'ExpressionStatement',
+					line: 2,
+					column: 5,
+				},
+			],
 		},
 	],
 });
