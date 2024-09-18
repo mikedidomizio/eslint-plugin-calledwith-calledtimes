@@ -98,8 +98,8 @@ TODO: Run eslint-doc-generator to generate the configs list (or delete this sect
 
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                       | Description                                                                                   | 🔧  |
-| :------------------------- | :-------------------------------------------------------------------------------------------- | :-- |
-| [jest](docs/rules/jest.md) | Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes` | 🔧  |
+| Name                       | Description                                                                                   | 🔧 |
+| :------------------------- | :-------------------------------------------------------------------------------------------- | :- |
+| [jest](docs/rules/jest.md) | Ensures that using test matcher `toHaveBeenCalledWith` is followed by `toHaveBeenCalledTimes` | 🔧 |
 
 <!-- end auto-generated rules list -->
