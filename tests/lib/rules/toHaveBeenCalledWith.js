@@ -92,7 +92,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			],
 		},
 		{
-			name: 'expect arg of expect, must match arg of other expect',
+			name: 'arg of expect must match arg of other expect',
 			code: `
 				expect(foo).toHaveBeenCalledWith('bar')
 				expect(hello).toHaveBeenCalledTimes(1)
@@ -112,7 +112,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
 	valid: [
 		{
-			name: 'expected number of toHaveBeenCalledWith matches toHaveBeenCalledTimes',
+			name: 'number of toHaveBeenCalledWith calls matches number in toHaveBeenCalledTimes',
 			options: [
 				{
 					toHaveBeenCalledWith: {
@@ -143,7 +143,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 	],
 	invalid: [
 		{
-			name: "expected number of toHaveBeenCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: number)",
+			name: "number of toHaveBeenCalledWith calls doesn't match number in toHaveBeenCalledTimes (calledTimes: number)",
 			options: [
 				{
 					toHaveBeenCalledWith: {
@@ -163,7 +163,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			],
 		},
 		{
-			name: "expected number of toHaveBeenCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
+			name: "number of toHaveBeenCalledWith calls doesn't match string in toHaveBeenCalledTimes (calledTimes: string)",
 			options: [
 				{
 					toHaveBeenCalledWith: {
