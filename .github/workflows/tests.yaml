@@ -1,10 +1,10 @@
-name: Run tests
+name: Tests
 
 on: [push]
 
 jobs:
   test:
-    name: Run tests
+    name: Tests
 
     runs-on: ubuntu-latest
 
