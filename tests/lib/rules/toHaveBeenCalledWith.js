@@ -8,7 +8,7 @@ const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`to
 
 const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`;
 
-ruleTester.run('jest', rules.rules['jest'], {
+ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'toHaveBeenCalledTimes is used after toHaveBeenCalledWith',
@@ -103,6 +103,82 @@ ruleTester.run('jest', rules.rules['jest'], {
 					type: 'ExpressionStatement',
 					line: 3,
 					column: 5,
+				},
+			],
+		},
+	],
+});
+
+ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
+	valid: [
+		{
+			name: 'expected number of toHaveBeenCalledWith matches toHaveBeenCalledTimes',
+			options: [
+				{
+					toHaveBeenCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: true,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(foo).toHaveBeenCalledWith('bar2')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+		},
+		{
+			name: 'if option false, will not report',
+			options: [
+				{
+					toHaveBeenCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: false,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+		},
+	],
+	invalid: [
+		{
+			name: "expected number of toHaveBeenCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: number)",
+			options: [
+				{
+					toHaveBeenCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: true,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(foo).toHaveBeenCalledTimes(2)
+			`,
+			errors: [
+				{
+					message:
+						'Missing `toHaveBeenCalledWith` for amount of times called, consider using `toHaveBeenNthCalledWith`',
+				},
+			],
+		},
+		{
+			name: "expected number of toHaveBeenCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
+			options: [
+				{
+					toHaveBeenCalledWith: {
+						strictNumberOfCalledWithMatchesCalledTimes: true,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(foo).toHaveBeenCalledTimes('2')
+			`,
+			errors: [
+				{
+					message:
+						'Missing `toHaveBeenCalledWith` for amount of times called, consider using `toHaveBeenNthCalledWith`',
 				},
 			],
 		},
