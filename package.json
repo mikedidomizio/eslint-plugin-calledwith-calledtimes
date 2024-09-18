@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-calledwith-calledtimes",
-	"version": "1.3.1",
+	"version": "1.4.0",
 	"description": "suggest using toHaveBeenCalledTimes when using toHaveBeenCalledWith",
 	"keywords": [
 		"eslint",

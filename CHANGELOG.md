@@ -1,3 +1,10 @@
+## 1.4.0 (2024-09-17)
+
+- Adds three new options
+  - `toHaveBeenNthCalledWith.strictOrderOfNthCalledWith` which checks that the order of `NthCalledWith` is numerically ordered.
+  - `toHaveBeenCalledWith.strictNumberOfCalledWithMatchesCalledTimes` which ensures that when using `calledTimes` that the number of `toHaveBeenCalledWith` is fully listed.
+  - `toHaveBeenNthCalledWith.strictNumberOfCalledWithMatchesCalledTimes` which ensures that when using `calledTimes` that the number of `toHaveBeenNthCalledWith` is fully listed.
+
 ## 1.3.1 (2024-09-17)
 
 - Fix a few checks to ensure the expected lines are reported
