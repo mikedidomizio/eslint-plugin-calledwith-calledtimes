@@ -302,7 +302,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			],
 		},
 		{
-			name: 'expected number of toHaveBeenNthCalledWith is not ordered and toHaveBeenCalledTimes before',
+			name: 'number of toHaveBeenNthCalledWith is not ordered and toHaveBeenCalledTimes is before',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
