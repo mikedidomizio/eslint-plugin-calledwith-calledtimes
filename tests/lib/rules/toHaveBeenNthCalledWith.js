@@ -4,7 +4,7 @@ const RuleTester = require('eslint').RuleTester;
 const ruleTester = new RuleTester();
 
 const missingCalledTimesMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenNthCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
-const missingCalledWithMessage = `Adding \`.toHaveBeenNthCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
+const missingCalledWithMessage = 'Adding `.toHaveBeenNthCalledWith()` before `toHaveBeenCalledTimes()` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.';
 
 const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`;
 
@@ -299,6 +299,42 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 					line: 4,
 					column: 5,
 				},
+			],
+		},
+		{
+			name: 'expected number of toHaveBeenNthCalledWith is not ordered and toHaveBeenCalledTimes before',
+			options: [
+				{
+					toHaveBeenNthCalledWith: {
+						strictOrderOfNthCalledWith: true,
+					},
+				},
+			],
+			code: `
+				expect(foo).toHaveBeenCalledTimes(3)
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+			`,
+			output: `
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
+				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
+				expect(foo).toHaveBeenCalledTimes(3)
+			`,
+			errors: [
+				{
+					message: missingCalledWithMessage,
+					type: 'ExpressionStatement',
+					line: 2,
+					column: 5,
+				},
+				{
+					message: outOfOrderNthCalledWith,
+					type: 'ExpressionStatement',
+					line: 5,
+					column: 5,
+				}
 			],
 		},
 	],
