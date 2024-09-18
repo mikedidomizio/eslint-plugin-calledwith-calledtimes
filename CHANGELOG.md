@@ -1,3 +1,7 @@
+## 1.4.1 (2024-09-18)
+
+- Fixes an issue where more than one out of order `toHaveBeenNthCalledWith`, and `toHaveBeenCalledTimes` out of order wouldn't get properly fixed.
+
 ## 1.4.0 (2024-09-17)
 
 - Adds three new options
