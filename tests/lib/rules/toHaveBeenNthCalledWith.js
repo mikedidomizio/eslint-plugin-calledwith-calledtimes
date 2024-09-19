@@ -19,6 +19,8 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith (not correct node after)',
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalled()
 			`,
@@ -26,7 +28,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				{
 					message: messages.missingToHaveBeenNthCalledTimes,
 					type: 'ExpressionStatement',
-					line: 3,
+					line: 5,
 					column: 5,
 				},
 			],
@@ -34,13 +36,15 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith (no node after)',
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 			`,
 			errors: [
 				{
 					message: messages.missingToHaveBeenNthCalledTimes,
 					type: 'ExpressionStatement',
-					line: 2,
+					line: 4,
 					column: 5,
 				},
 			],
@@ -48,10 +52,14 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith, and not before',
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenCalledTimes(1)
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 			`,
 			output: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 				expect(foo).toHaveBeenCalledTimes(1)
 			`,
@@ -59,7 +67,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				{
 					message: messages.missingToHaveBeenNthCalledWith,
 					type: 'ExpressionStatement',
-					line: 2,
+					line: 4,
 					column: 5,
 				},
 			],
@@ -72,10 +80,14 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenCalledTimes(1);
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 			`,
 			output: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 				expect(foo).toHaveBeenCalledTimes(1);
 			`,
@@ -83,7 +95,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				{
 					message: 'Please put them in the order we expect',
 					type: 'ExpressionStatement',
-					line: 2,
+					line: 4,
 					column: 5,
 				},
 			],
@@ -91,6 +103,8 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 		{
 			name: 'arg of expect must match arg of other expect',
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(hello).toHaveBeenCalledTimes(1)
 			`,
@@ -98,7 +112,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				{
 					message: messages.identifiersAreNotMatching,
 					type: 'ExpressionStatement',
-					line: 3,
+					line: 5,
 					column: 5,
 				},
 			],
@@ -118,6 +132,8 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
 				expect(foo).toHaveBeenCalledTimes(2)
@@ -133,6 +149,8 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
@@ -149,13 +167,15 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 			errors: [{
 				message: messages.missingExpectedToHaveBeenNthCalledWith,
 				type: 'ExpressionStatement',
-				line: 3,
+				line: 5,
 				column: 5,
 			}],
 		},
@@ -169,13 +189,15 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes('2')
 			`,
 			errors: [{
 				message: messages.missingExpectedToHaveBeenNthCalledWith,
 				type: 'ExpressionStatement',
-				line: 3,
+				line: 5,
 				column: 5,
 			}],
 		},
@@ -189,6 +211,8 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenCalled()
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar2')
@@ -197,7 +221,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			errors: [{
 				message: messages.missingExpectedToHaveBeenNthCalledWith,
 				type: 'ExpressionStatement',
-				line: 5,
+				line: 7,
 				column: 5,
 			}],
 		},
@@ -216,6 +240,8 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
 				expect(foo).toHaveBeenCalledTimes(2)
@@ -231,6 +257,8 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar2')
 				expect(foo).toHaveBeenNthCalledWith(8, 'bar2')
@@ -247,6 +275,8 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(2)
@@ -264,12 +294,16 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(3)
 			`,
 			output: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
@@ -278,7 +312,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			errors: [{
 				message: messages.outOfOrderNthCalledWith,
 				type: 'ExpressionStatement',
-				line: 4,
+				line: 6,
 				column: 5,
 			}],
 		},
@@ -292,12 +326,16 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				},
 			],
 			code: `
+				foo()
+
 				expect(foo).toHaveBeenCalledTimes(3)
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 			`,
 			output: `
+				foo()
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar')
 				expect(foo).toHaveBeenNthCalledWith(3, 'bar')
@@ -307,13 +345,13 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				{
 					message: messages.missingToHaveBeenNthCalledWith,
 					type: 'ExpressionStatement',
-					line: 2,
+					line: 4,
 					column: 5,
 				},
 				{
 					message: messages.outOfOrderNthCalledWith,
 					type: 'ExpressionStatement',
-					line: 5,
+					line: 7,
 					column: 5,
 				}
 			],
