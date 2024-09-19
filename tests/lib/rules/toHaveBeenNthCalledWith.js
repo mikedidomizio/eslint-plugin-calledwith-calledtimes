@@ -5,10 +5,10 @@ const { messages } = require('../../../lib/rules/constants');
 
 const ruleTester = new RuleTester();
 
-ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
+ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 	valid: [
 		{
-			name: 'toHaveBeenCalledTimes is used after toHaveBeenNthCalledTimes',
+			name: 'toHaveBeenCalledTimes is used after toHaveBeenNthCalledWith',
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalledTimes(1)
@@ -17,7 +17,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 	],
 	invalid: [
 		{
-			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes (not correct node after)',
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith (not correct node after)',
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(foo).toHaveBeenCalled()
@@ -32,7 +32,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 			],
 		},
 		{
-			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes (no node after)',
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith (no node after)',
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 			`,
@@ -46,7 +46,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 			],
 		},
 		{
-			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledTimes, and not before',
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith, and not before',
 			code: `
 				expect(foo).toHaveBeenCalledTimes(1)
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
@@ -89,7 +89,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 			],
 		},
 		{
-			name: 'expect arg of expect, must match arg of other expect',
+			name: 'arg of expect must match arg of other expect',
 			code: `
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar')
 				expect(hello).toHaveBeenCalledTimes(1)
@@ -109,7 +109,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
 	valid: [
 		{
-			name: 'expected number of toHaveBeenNthCalledWith matches toHaveBeenCalledTimes',
+			name: 'number of toHaveBeenNthCalledWith calls matches number in toHaveBeenCalledTimes',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -140,7 +140,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 	],
 	invalid: [
 		{
-			name: "expected number of toHaveBeenNthCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: number)",
+			name: "number of toHaveBeenNthCalledWith calls doesn't match number in toHaveBeenCalledTimes (calledTimes: number)",
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -160,7 +160,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			}],
 		},
 		{
-			name: "expected number of toHaveBeenNthCalledWith doesn't match toHaveBeenCalledTimes (calledTimes: string)",
+			name: "number of toHaveBeenNthCalledWith calls doesn't match string in toHaveBeenCalledTimes (calledTimes: string)",
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -180,7 +180,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			}],
 		},
 		{
-			name: 'expected the correct nodes toHaveBeenNthCalledWith before',
+			name: 'number of toHaveBeenNthCalledWith before matches number of toHaveBeenCalledTimes',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -206,7 +206,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 	valid: [
 		{
-			name: 'expected order of toHaveBeenNthCalledWith',
+			name: 'order of toHaveBeenNthCalledWith is correct (consecutive increment)',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -221,7 +221,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			`,
 		},
 		{
-			name: 'expected order of toHaveBeenNthCalledWith',
+			name: 'order of toHaveBeenNthCalledWith is correct (non-sequential list)',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -253,7 +253,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 	],
 	invalid: [
 		{
-			name: 'expected number of toHaveBeenNthCalledWith is not ordered',
+			name: 'number of toHaveBeenNthCalledWith is not ordered when rule is set to true',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
@@ -274,7 +274,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			}],
 		},
 		{
-			name: 'expected number of toHaveBeenNthCalledWith is not ordered and toHaveBeenCalledTimes before',
+			name: 'toHaveBeenNthCalledWith is not ordered, and toHaveBeenCalledTimes is before',
 			options: [
 				{
 					toHaveBeenNthCalledWith: {
