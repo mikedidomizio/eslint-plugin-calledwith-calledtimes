@@ -1,16 +1,14 @@
 const rules = require('../../../lib');
 const RuleTester = require('eslint').RuleTester;
 
+const { messages } = require('../../../lib/rules/constants');
+
 const ruleTester = new RuleTester();
-
-const missingCalledTimesMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenNthCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
-const missingCalledWithMessage = 'Adding `.toHaveBeenNthCalledWith()` before `toHaveBeenCalledTimes()` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.';
-
-const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`;
 
 const missingExpectedToHaveBeenNthCalledWith =
 	'`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`';
 
+// todo constant
 const outOfOrderNthCalledWith = 'Please order the `toHaveBeenNthCalledWith` numerically';
 
 ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
@@ -32,7 +30,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledTimesMessage,
+					message: messages.missingToHaveBeenNthCalledTimes,
 					type: 'ExpressionStatement',
 					line: 3,
 					column: 5,
@@ -46,7 +44,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledTimesMessage,
+					message: messages.missingToHaveBeenNthCalledTimes,
 					type: 'ExpressionStatement',
 					line: 2,
 					column: 5,
@@ -65,7 +63,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledWithMessage,
+					message: messages.missingToHaveBeenNthCalledWith,
 					type: 'ExpressionStatement',
 					line: 2,
 					column: 5,
@@ -104,7 +102,7 @@ ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: identifiersAreNotMatching,
+					message: messages.identifiersAreNotMatching,
 					type: 'ExpressionStatement',
 					line: 3,
 					column: 5,
@@ -201,6 +199,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
+			// todo message constant
 			errors: [{
 				message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`',
 				type: 'ExpressionStatement',
@@ -304,7 +303,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledWithMessage,
+					message: messages.missingToHaveBeenNthCalledWith,
 					type: 'ExpressionStatement',
 					line: 2,
 					column: 5,
