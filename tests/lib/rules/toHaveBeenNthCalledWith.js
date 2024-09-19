@@ -22,6 +22,15 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				expect(foo).toHaveBeenCalledTimes(1)
 			`,
 		},
+		{
+			name: 'function calls before don\'t get reported',
+			code: `
+				foo('bar')
+				
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
+				expect(foo).toHaveBeenCalledTimes(1)
+			`
+		}
 	],
 	invalid: [
 		{
@@ -56,10 +65,14 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith, and not before',
 			code: `
+				foo('bar')
+			
 				expect(foo).toHaveBeenCalledTimes(1)
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 			`,
 			output: `
+				foo('bar')
+
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
 				expect(foo).toHaveBeenCalledTimes(1)
 			`,
@@ -67,7 +80,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				{
 					message: missingCalledWithMessage,
 					type: 'ExpressionStatement',
-					line: 2,
+					line: 4,
 					column: 5,
 				},
 			],
