@@ -1,12 +1,9 @@
 const rules = require('../../../lib');
 const RuleTester = require('eslint').RuleTester;
 
+const { messages } = require('../../../lib/rules/constants');
+
 const ruleTester = new RuleTester();
-
-const missingCalledTimesMessage = `Adding \`.toHaveBeenCalledTimes()\` after \`toHaveBeenCalledWith()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
-const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
-
-const identifiersAreNotMatching = `Please add the matching argument for expect(ARG).toHaveBeenCalledTimes`;
 
 ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 	valid: [
@@ -27,7 +24,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledTimesMessage,
+					message: messages.missingToHaveBeenCalledTimes,
 					type: 'ExpressionStatement',
 					line: 3,
 					column: 5,
@@ -41,7 +38,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledTimesMessage,
+					message: messages.missingToHaveBeenCalledTimes,
 					type: 'ExpressionStatement',
 					line: 2,
 					column: 5,
@@ -60,7 +57,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledWithMessage,
+					message: messages.missingToHaveBeenCalledWith,
 					type: 'ExpressionStatement',
 					line: 2,
 					column: 5,
@@ -99,7 +96,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: identifiersAreNotMatching,
+					message: messages.identifiersAreNotMatching,
 					type: 'ExpressionStatement',
 					line: 3,
 					column: 5,
@@ -157,6 +154,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			`,
 			errors: [
 				{
+					// todo constant
 					message:
 						'Missing `toHaveBeenCalledWith` for amount of times called, consider using `toHaveBeenNthCalledWith`',
 				},
@@ -177,6 +175,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			`,
 			errors: [
 				{
+					// todo constant
 					message:
 						'Missing `toHaveBeenCalledWith` for amount of times called, consider using `toHaveBeenNthCalledWith`',
 				},
