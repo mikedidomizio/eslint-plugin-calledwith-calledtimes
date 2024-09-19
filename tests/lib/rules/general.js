@@ -1,9 +1,9 @@
 const rules = require('../../../lib');
 const RuleTester = require('eslint').RuleTester;
 
-const ruleTester = new RuleTester();
+const { messages } = require('../../../lib/rules/constants');
 
-const missingCalledWithMessage = `Adding \`.toHaveBeenCalledWith()\` before \`toHaveBeenCalledTimes()\` ensures that a function is called with a specific set of arguments, and a specific amount of times. This ensures that a function is called no more or no less than what is expected.`;
+const ruleTester = new RuleTester();
 
 ruleTester.run('general', rules.rules['jest'], {
 	valid: [],
@@ -15,7 +15,7 @@ ruleTester.run('general', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: missingCalledWithMessage,
+					message: messages.missingToHaveBeenCalledWith,
 					type: 'ExpressionStatement',
 					line: 2,
 					column: 5,

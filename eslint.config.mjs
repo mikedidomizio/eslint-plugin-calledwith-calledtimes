@@ -6,4 +6,9 @@ export default [
 	pluginJs.configs.recommended,
 	...pluginNode.configs['flat/mixed-esm-and-cjs'],
 	eslintPlugin.configs['flat/recommended'],
+	{
+		rules: {
+			'no-shadow': 'error'
+		}
+	}
 ];
