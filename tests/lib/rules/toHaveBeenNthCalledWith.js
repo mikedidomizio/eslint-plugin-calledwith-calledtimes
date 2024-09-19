@@ -5,12 +5,6 @@ const { messages } = require('../../../lib/rules/constants');
 
 const ruleTester = new RuleTester();
 
-const missingExpectedToHaveBeenNthCalledWith =
-	'`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`';
-
-// todo constant
-const outOfOrderNthCalledWith = 'Please order the `toHaveBeenNthCalledWith` numerically';
-
 ruleTester.run('toHaveBeenNthCalledTimes', rules.rules['jest'], {
 	valid: [
 		{
@@ -159,7 +153,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 			errors: [{
-				message: missingExpectedToHaveBeenNthCalledWith,
+				message: messages.missingExpectedToHaveBeenNthCalledWith,
 				type: 'ExpressionStatement',
 				line: 3,
 				column: 5,
@@ -179,7 +173,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledTimes('2')
 			`,
 			errors: [{
-				message: missingExpectedToHaveBeenNthCalledWith,
+				message: messages.missingExpectedToHaveBeenNthCalledWith,
 				type: 'ExpressionStatement',
 				line: 3,
 				column: 5,
@@ -199,9 +193,8 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenNthCalledWith(2, 'bar2')
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
-			// todo message constant
 			errors: [{
-				message: '`toHaveBeenNthCalledWith` needs to be explicit and match the number of `toHaveBeenCalledTimes`',
+				message: messages.missingExpectedToHaveBeenNthCalledWith,
 				type: 'ExpressionStatement',
 				line: 4,
 				column: 5,
@@ -274,7 +267,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 			errors: [{
-				message: outOfOrderNthCalledWith,
+				message: messages.outOfOrderNthCalledWith,
 				type: 'ExpressionStatement',
 				line: 2,
 				column: 5,
@@ -309,7 +302,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 					column: 5,
 				},
 				{
-					message: outOfOrderNthCalledWith,
+					message: messages.outOfOrderNthCalledWith,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,

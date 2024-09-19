@@ -154,9 +154,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			`,
 			errors: [
 				{
-					// todo constant
-					message:
-						'Missing `toHaveBeenCalledWith` for amount of times called, consider using `toHaveBeenNthCalledWith`',
+					message: messages.missingExpectedToHaveBeenCalledWith
 				},
 			],
 		},
@@ -175,9 +173,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 			`,
 			errors: [
 				{
-					// todo constant
-					message:
-						'Missing `toHaveBeenCalledWith` for amount of times called, consider using `toHaveBeenNthCalledWith`',
+					message: messages.missingExpectedToHaveBeenCalledWith
 				},
 			],
 		},
