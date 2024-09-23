@@ -5,6 +5,8 @@ const { messages } = require('../../../lib/rules/constants');
 
 const ruleTester = new RuleTester();
 
+const { shouldRunTest } = require('../helpers')
+
 ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 	valid: [
 		{
@@ -14,7 +16,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				expect(foo).toHaveBeenCalledTimes(1)
 			`,
 		},
-	],
+	].filter(shouldRunTest),
 	invalid: [
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith (not correct node after)',
@@ -117,7 +119,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				},
 			],
 		},
-	],
+	].filter(shouldRunTest),
 });
 
 ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
@@ -155,7 +157,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 		},
-	],
+	].filter(shouldRunTest),
 	invalid: [
 		{
 			name: "number of toHaveBeenNthCalledWith calls doesn't match number in toHaveBeenCalledTimes (calledTimes: number)",
@@ -225,7 +227,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				column: 5,
 			}],
 		},
-	],
+	].filter(shouldRunTest),
 });
 
 ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
@@ -282,7 +284,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 		},
-	],
+	].filter(shouldRunTest),
 	invalid: [
 		{
 			name: 'toHaveBeenNthCalledWith is not ordered when rule is set to true',
@@ -356,5 +358,5 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 				}
 			],
 		},
-	],
+	].filter(shouldRunTest),
 });
