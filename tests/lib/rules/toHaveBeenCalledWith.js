@@ -5,6 +5,8 @@ const { messages } = require('../../../lib/rules/constants');
 
 const ruleTester = new RuleTester();
 
+const { shouldRunTest } = require('../helpers')
+
 ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 	valid: [
 		{
@@ -16,7 +18,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 				expect(foo).toHaveBeenCalledTimes(1)
 			`,
 		},
-	],
+	].filter(shouldRunTest),
 	invalid: [
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenCalledWith (not correct node after)',
@@ -119,7 +121,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 				},
 			],
 		},
-	],
+	].filter(shouldRunTest),
 });
 
 ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
@@ -157,7 +159,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 		},
-	],
+	].filter(shouldRunTest),
 	invalid: [
 		{
 			name: "number of toHaveBeenCalledWith calls doesn't match number in toHaveBeenCalledTimes (calledTimes: number)",
@@ -201,5 +203,5 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				},
 			],
 		},
-	],
+	].filter(shouldRunTest),
 });

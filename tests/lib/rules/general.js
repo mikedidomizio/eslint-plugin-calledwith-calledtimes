@@ -5,6 +5,8 @@ const { messages } = require('../../../lib/rules/constants');
 
 const ruleTester = new RuleTester();
 
+const { shouldRunTest } = require('../helpers')
+
 ruleTester.run('general', rules.rules['jest'], {
 	valid: [],
 	invalid: [
@@ -22,5 +24,5 @@ ruleTester.run('general', rules.rules['jest'], {
 				},
 			],
 		},
-	],
+	].filter(shouldRunTest),
 });
