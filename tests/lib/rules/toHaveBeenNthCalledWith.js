@@ -49,23 +49,67 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 				},
 			],
 		},
+		// todo it could probably be moved outside to a more complex test file
 		{
 			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith, and not before',
 			code: `
 				foo()
 
-				expect(foo).toHaveBeenCalledTimes(1)
+				expect(foo).toHaveBeenCalledTimes(2)
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar');
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
+
+				expect(other).toHaveBeenCalledWith('bar')
+				expect(other).toHaveBeenCalledTimes(1)
 			`,
 			output: `
 				foo()
 
 				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
-				expect(foo).toHaveBeenCalledTimes(1)
+				expect(foo).toHaveBeenCalledWith('bar')
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar');
+				expect(foo).toHaveBeenCalledTimes(2)
+
+				expect(other).toHaveBeenCalledWith('bar')
+				expect(other).toHaveBeenCalledTimes(1)
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenNthCalledWith,
+					message: messages.toHaveBeenCalledTimesAtEnd,
+					type: 'ExpressionStatement',
+					line: 4,
+					column: 5,
+				},
+			],
+		},
+		{
+			name: 'toHaveBeenCalledTimes to be after toHaveBeenNthCalledWith, and not in the middle',
+			code: `
+				foo()
+
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar');
+				expect(foo).toHaveBeenCalledTimes(2)
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
+
+				expect(other).toHaveBeenCalledWith('bar')
+				expect(other).toHaveBeenCalledTimes(1)
+			`,
+			output: `
+				foo()
+
+				expect(foo).toHaveBeenNthCalledWith(1, 'bar');
+				expect(foo).toHaveBeenNthCalledWith(2, 'bar');
+				expect(foo).toHaveBeenCalledTimes(2)
+
+				expect(other).toHaveBeenCalledWith('bar')
+				expect(other).toHaveBeenCalledTimes(1)
+			`,
+			errors: [
+				{
+					message: messages.toHaveBeenCalledTimesAtEnd,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,
@@ -343,9 +387,9 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenNthCalledWith,
+					message: messages.toHaveBeenCalledTimesAtEnd,
 					type: 'ExpressionStatement',
-					line: 4,
+					line: 3,
 					column: 5,
 				},
 				{

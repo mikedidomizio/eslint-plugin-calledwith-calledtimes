@@ -67,7 +67,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenCalledWith,
+					message: messages.toHaveBeenCalledTimesAtEnd,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,
