@@ -28,7 +28,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenNthCalledTimes,
+					message: messages.toHaveBeenCalledTimesNotAfterNth,
 					type: 'ExpressionStatement',
 					line: 5,
 					column: 5,
@@ -44,7 +44,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenNthCalledTimes,
+					message: messages.toHaveBeenCalledTimesNotAfterNth,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,
@@ -67,7 +67,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenNthCalledWith,
+					message: messages.toHaveBeenNthCalledWithNotBefore,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,
@@ -175,7 +175,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledTimes(2)
 			`,
 			errors: [{
-				message: messages.missingExpectedToHaveBeenNthCalledWith,
+				message: messages.notAllToHaveBeenNthCalledWithListed,
 				type: 'ExpressionStatement',
 				line: 5,
 				column: 5,
@@ -197,7 +197,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledTimes('2')
 			`,
 			errors: [{
-				message: messages.missingExpectedToHaveBeenNthCalledWith,
+				message: messages.notAllToHaveBeenNthCalledWithListed,
 				type: 'ExpressionStatement',
 				line: 5,
 				column: 5,
@@ -221,7 +221,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 				expect(foo).toHaveBeenCalledTimes(3)
 			`,
 			errors: [{
-				message: messages.missingExpectedToHaveBeenNthCalledWith,
+				message: messages.notAllToHaveBeenNthCalledWithListed,
 				type: 'ExpressionStatement',
 				line: 7,
 				column: 5,
@@ -345,7 +345,7 @@ ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenNthCalledWith,
+					message: messages.toHaveBeenNthCalledWithNotBefore,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,

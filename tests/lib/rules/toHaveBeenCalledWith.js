@@ -30,7 +30,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenCalledTimes,
+					message: messages.toHaveBeenCalledTimesNotAfter,
 					type: 'ExpressionStatement',
 					line: 5,
 					column: 5,
@@ -46,7 +46,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenCalledTimes,
+					message: messages.toHaveBeenCalledTimesNotAfter,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,
@@ -69,7 +69,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenCalledWith,
+					message: messages.toHaveBeenCalledWithNotBefore,
 					type: 'ExpressionStatement',
 					line: 4,
 					column: 5,
