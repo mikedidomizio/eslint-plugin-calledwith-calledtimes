@@ -17,7 +17,7 @@ ruleTester.run('general', rules.rules['jest'], {
 			`,
 			errors: [
 				{
-					message: messages.missingToHaveBeenCalledWith,
+					message: messages.toHaveBeenCalledWithNotBefore,
 					type: 'ExpressionStatement',
 					line: 2,
 					column: 5,
