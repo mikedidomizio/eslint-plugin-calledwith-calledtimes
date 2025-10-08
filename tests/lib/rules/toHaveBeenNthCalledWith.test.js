@@ -1,13 +1,11 @@
 const rules = require('../../../lib');
-const RuleTester = require('eslint').RuleTester;
 
 const { messages } = require('../../../lib/rules/constants');
-
-const ruleTester = new RuleTester();
+const { runRuleTester } = require('../utils');
 
 const { shouldRunTest } = require('../helpers')
 
-ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
+runRuleTester('toHaveBeenNthCalledWith', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'toHaveBeenCalledTimes is used after toHaveBeenNthCalledWith',
@@ -122,7 +120,7 @@ ruleTester.run('toHaveBeenNthCalledWith', rules.rules['jest'], {
 	].filter(shouldRunTest),
 });
 
-ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
+runRuleTester('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'number of toHaveBeenNthCalledWith calls matches number in toHaveBeenCalledTimes',
@@ -230,7 +228,7 @@ ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest']
 	].filter(shouldRunTest),
 });
 
-ruleTester.run('strictOrderOfNthCalledWith', rules.rules['jest'], {
+runRuleTester('strictOrderOfNthCalledWith', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'order of toHaveBeenNthCalledWith is correct (consecutive increment)',

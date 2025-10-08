@@ -1,13 +1,11 @@
 const rules = require('../../../lib');
-const RuleTester = require('eslint').RuleTester;
+const { runRuleTester } = require('../utils')
 
 const { messages } = require('../../../lib/rules/constants');
 
-const ruleTester = new RuleTester();
-
 const { shouldRunTest } = require('../helpers')
 
-ruleTester.run('general', rules.rules['jest'], {
+runRuleTester('general', rules.rules['jest'], {
 	valid: [],
 	invalid: [
 		{

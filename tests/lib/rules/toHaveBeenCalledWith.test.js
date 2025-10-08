@@ -1,13 +1,11 @@
 const rules = require('../../../lib');
-const RuleTester = require('eslint').RuleTester;
+const { runRuleTester } = require('../utils')
 
 const { messages } = require('../../../lib/rules/constants');
 
-const ruleTester = new RuleTester();
-
 const { shouldRunTest } = require('../helpers')
 
-ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
+runRuleTester('toHaveBeenCalledWith', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'toHaveBeenCalledTimes is used after toHaveBeenCalledWith',
@@ -124,7 +122,7 @@ ruleTester.run('toHaveBeenCalledWith', rules.rules['jest'], {
 	].filter(shouldRunTest),
 });
 
-ruleTester.run('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
+runRuleTester('strictNumberOfCalledWithMatchesCalledTimes', rules.rules['jest'], {
 	valid: [
 		{
 			name: 'number of toHaveBeenCalledWith calls matches number in toHaveBeenCalledTimes',

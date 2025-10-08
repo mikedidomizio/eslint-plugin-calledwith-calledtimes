@@ -20,8 +20,8 @@
 		"lint": "npm-run-all \"lint:*\"",
 		"lint:eslint-docs": "npm-run-all \"update:eslint-docs -- --check\"",
 		"lint:js": "eslint .",
-		"test": "mocha tests --recursive",
-		"test:watch": "npm run test -- --watch",
+		"test": "vitest --run --hideSkippedTests",
+		"test:watch": "vitest",
 		"update:eslint-docs": "eslint-doc-generator",
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
@@ -35,9 +35,9 @@
 		"eslint-plugin-eslint-plugin": "^6.0.0",
 		"eslint-plugin-n": "^17.0.0",
 		"eslint-plugin-prettier": "^5.2.1",
-		"mocha": "^10.0.0",
 		"npm-run-all2": "^6.1.2",
-		"prettier": "^3.3.3"
+		"prettier": "^3.3.3",
+		"vitest": "^3.2.4"
 	},
 	"engines": {
 		"node": "^18.18.0 || ^20.9.0 || >=21.1.0"
