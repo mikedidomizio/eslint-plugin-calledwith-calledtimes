@@ -11,13 +11,14 @@
 		"toHaveBeenCalledWith toHaveBeenCalledTimes"
 	],
 	"author": "Mike DiDomizio",
-	"main": "./lib/index.js",
-	"exports": "./lib/index.js",
+	"main": "lib/index.ts",
+	"exports": "./dist/index.js",
 	"files": [
 		"lib"
 	],
 	"scripts": {
-		"lint": "npm-run-all \"lint:*\"",
+        "build": "tsup lib/index.ts --format cjs --out-dir dist",
+        "lint": "npm-run-all \"lint:*\"",
 		"lint:eslint-docs": "npm-run-all \"update:eslint-docs -- --check\"",
 		"lint:js": "eslint .",
 		"test": "vitest --run --hideSkippedTests",
@@ -25,10 +26,12 @@
 		"update:eslint-docs": "eslint-doc-generator",
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
-		"stage": "npm run test && npm run prettier:write && npm run lint"
+		"stage": "npm run test && npm run prettier:write && npm run lint",
+        "ts": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.0.0",
+		"@typescript-eslint/parser": "^8.46.0",
 		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-doc-generator": "^1.0.0",
@@ -37,6 +40,8 @@
 		"eslint-plugin-prettier": "^5.2.1",
 		"npm-run-all2": "^6.1.2",
 		"prettier": "^3.3.3",
+		"tsup": "^8.5.0",
+		"typescript": "^5.9.3",
 		"vitest": "^3.2.4"
 	},
 	"engines": {

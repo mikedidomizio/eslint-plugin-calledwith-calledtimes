@@ -4,12 +4,16 @@
  */
 'use strict';
 
+// @ts-ignore
+import jest from './rules/jest';
+
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
-
-module.exports = {
+const index = {
 	rules: {
-		jest: require('./rules/jest'),
+		jest,
 	},
 };
+
+export default index

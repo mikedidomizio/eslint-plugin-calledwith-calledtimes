@@ -1,9 +1,14 @@
-const rules = require('../../../lib');
+import rules from '../../../lib';
 
-const { messages } = require('../../../lib/rules/constants');
-const { runRuleTester } = require('../utils');
+// @ts-ignore
+import { messages } from '../../../lib/rules/constants';
 
-const { shouldRunTest } = require('../helpers')
+// @ts-ignore
+import { runRuleTester } from '../utils';
+
+// @ts-ignore
+import { shouldRunTest } from '../helpers';
+
 
 runRuleTester('toHaveBeenNthCalledWith', rules.rules['jest'], {
 	valid: [
