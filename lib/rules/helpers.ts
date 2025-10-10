@@ -1,42 +1,60 @@
-const { toHaveBeenCalledTimes } = require('./constants')
+import { toHaveBeenCalledTimes } from './constants';
+import { Rule } from 'eslint';
+import ESTree, { CallExpression, ExpressionStatement } from 'estree';
 
-
-const getPreviousNode = (node, index = 1) => {
+const getPreviousNode = (node: Rule.Node, index = 1) => {
 	const parent = node.parent;
-	const siblings = parent.body || parent.consequent || [];
-	const currentIndex = siblings.indexOf(node);
-	return siblings[currentIndex - index] || null;
-};
-
-const getNextNode = (node, index = 1) => {
-	const parent = node.parent;
-	const siblings = parent.body || parent.consequent || [];
-	const currentIndex = siblings.indexOf(node);
-	return siblings[currentIndex + index] || null;
-};
-
-const getNodePropertyName = (node) => {
-	return node?.expression?.callee?.property?.name || null;
-};
-
-const getArgsOfExpectCall = (node) => {
-	if (node?.expression?.callee?.object?.arguments) {
-		return node?.expression.callee.object.arguments[0].name || null;
+	if ('body' in parent) {
+		const siblings = parent.body || [];
+		const currentIndex = siblings.indexOf(node);
+		return siblings[currentIndex - index] || null;
+	} else if ('consequent' in parent) {
+		const siblings = parent.consequent || [];
+		const currentIndex = siblings.indexOf(node);
+		return siblings[currentIndex - index] || null;
 	}
 
 	return null
 };
 
-const getNumberOfTimesCalled = (node) => {
-	if (node?.expression?.callee?.property?.name !== 'toHaveBeenCalledTimes') {
+const getNextNode = (node: Rule.Node, index = 1) => {
+	const parent = node.parent;
+	if ('body' in parent && 'consequent' in parent) {
+		const siblings = parent.body || parent.consequent || [];
+
+		if (Array.isArray(siblings)) {
+			const currentIndex = siblings.indexOf(node);
+			return siblings[currentIndex + index] || null;
+		}
+	}
+};
+
+const getNodePropertyName = (node: ExpressionStatement) => {
+	if (node && 'callee' in node.expression && 'property' in node.expression.callee && 'name' in node.expression.callee.property) {
+		return node.expression.callee.property.name;
+	}
+
+	return null
+};
+
+const getArgsOfExpectCall = (node: ExpressionStatement) => {
+	if (node && 'expression' in node && 'callee' in node.expression && 'object' in node.expression.callee && 'arguments' in node.expression.callee.object && 'name' in node.expression.callee.object.arguments[0]) {
+		return node?.expression.callee.object.arguments[0].name;
+	}
+
+	return null
+};
+
+const getNumberOfTimesCalled = (node: ExpressionStatement) => {
+	if (node && 'expression' in node && 'callee' in node.expression && 'property' in node.expression.callee && node?.expression?.callee?.property?.name !== 'toHaveBeenCalledTimes') {
 		throw new Error('Passing in a node that does not contain `toHaveBeenCalledTimes`');
 	}
 
 	return node?.expression.arguments[0].value;
 };
 
-const getNumberOfNthCalledWith = (node) => {
-	if (node?.expression?.callee?.property.name !== 'toHaveBeenNthCalledWith') {
+const getNumberOfNthCalledWith = (node: ExpressionStatement) => {
+	if (node && 'expression' in node && 'callee' in node.expression && node?.expression?.callee?.property.name !== 'toHaveBeenNthCalledWith') {
 		throw new Error('Passing in a node that does not contain `toHaveBeenCalledWith`');
 	}
 
@@ -49,7 +67,7 @@ const getNumberOfNthCalledWith = (node) => {
  * @param acceptableNodePropertyNames	An array of acceptable node property names which if the next node is one of these, it will continue. Everything else is considered bad.
  * @return {boolean}	Whether the `toHaveBeenCalledTimes` follows `toHaveBeen(Nth)CalledWith`
  */
-const getEventuallyCalledTimesExists = (node, acceptableNodePropertyNames = []) => {
+const getEventuallyCalledTimesExists = (node: Rule.Node, acceptableNodePropertyNames: string[] = []) => {
 	let found = false;
 	let loop = true;
 	let nodeIndex = 1;
@@ -72,7 +90,7 @@ const getEventuallyCalledTimesExists = (node, acceptableNodePropertyNames = []) 
 	return found;
 };
 
-const getEventuallyCalledTimesExistsBefore = (node, acceptableNodePropertyNames = []) => {
+const getEventuallyCalledTimesExistsBefore = (node: Rule.Node, acceptableNodePropertyNames: string[] = []) => {
 	let found = false;
 	let loop = true;
 	let nodeIndex = 1;
@@ -100,13 +118,13 @@ const getEventuallyCalledTimesExistsBefore = (node, acceptableNodePropertyNames 
  * @param {string} fallbackMessage
  * @return {{message: (string|*|null)}|{messageId}}
  */
-const getErrorMessageObject = (options, fallbackMessage) => {
+const getErrorMessageObject = (options: { reportMessage: string }, fallbackMessage: string) => {
 	return {
 		message: options?.reportMessage ? options.reportMessage : fallbackMessage,
 	};
 };
 
-function arrIdentical(a1, a2) {
+function arrIdentical(a1: any[], a2: any[]) {
 	// Tim Down: http://stackoverflow.com/a/7837725/308645
 	var i = a1.length;
 	if (i !== a2.length) return false;
@@ -116,7 +134,7 @@ function arrIdentical(a1, a2) {
 	return true;
 }
 
-module.exports = {
+export {
 	arrIdentical,
 	getErrorMessageObject,
 	getEventuallyCalledTimesExists,

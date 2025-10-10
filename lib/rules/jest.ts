@@ -1,4 +1,6 @@
-const {
+import { Rule } from 'eslint'
+
+import {
 	arrIdentical,
 	getErrorMessageObject,
 	getEventuallyCalledTimesExists,
@@ -9,23 +11,18 @@ const {
 	getNumberOfNthCalledWith,
 	getNumberOfTimesCalled,
 	getPreviousNode,
-} = require('./helpers');
+} from './helpers';
 
-const {
-	messages,
+// @ts-ignore
+import { messages, toHaveBeenCalledTimes, toHaveBeenCalledWith, toHaveBeenNthCalledWith } from './constants';
 
-	toHaveBeenCalledTimes,
-	toHaveBeenCalledWith,
-	toHaveBeenNthCalledWith
-} = require('./constants');
+// @ts-ignore
+import { schema } from './schema';
 
-const {
-	schema
-} = require('./schema');
+// @ts-ignore
+import { getFixesForLastCalledWithAtEnd, swapLines } from './fixer-helpers';
 
-const { getFixesForLastCalledWithAtEnd, swapLines } = require('./fixer-helpers');
-
-module.exports = {
+export default {
 	meta: {
 		type: 'suggestion',
 		messages,
@@ -35,11 +32,11 @@ module.exports = {
 		schema: [schema],
 		fixable: 'code',
 	},
-	create(context) {
+	create(context: Rule.RuleContext) {
 		const options = context.options[0]
 
 		return {
-			ExpressionStatement: function (node) {
+			ExpressionStatement: function (node: Rule.Node) {
 				const nodeName = getNodePropertyName(node);
 				const previousNode = getPreviousNode(node);
 				const nextNode = getNextNode(node);
@@ -82,7 +79,7 @@ module.exports = {
 					if (options?.toHaveBeenNthCalledWith?.strictOrderOfNthCalledWith) {
 						// we start at the very start of the list and sort them
 						if (getNodePropertyName(previousNode) !== toHaveBeenNthCalledWith) {
-							const nthCalledWithOrder = [];
+							const nthCalledWithOrder: number[] = [];
 							let finishedGettingOrder = false;
 							let curNode = node;
 							while (!finishedGettingOrder) {
@@ -214,7 +211,7 @@ module.exports = {
 							});
 						}
 
-						const isMissingExpectedToHaveBeenCalledWith = (nodeToProcess, propertyName) => {
+						const isMissingExpectedToHaveBeenCalledWith = (nodeToProcess: Rule.Node, propertyName: string) => {
 							const numberOfTimesCalled = getNumberOfTimesCalled(nodeToProcess);
 							return new Array(parseInt(numberOfTimesCalled, 10))
 								.fill(null)

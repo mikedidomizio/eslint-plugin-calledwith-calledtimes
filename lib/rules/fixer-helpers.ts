@@ -1,11 +1,9 @@
-const {
-	getNodePropertyName,
-	getNextNode,
-} = require('./helpers');
+import { toHaveBeenNthCalledWith } from './constants';
 
-const {
-	toHaveBeenNthCalledWith
-} = require('./constants');
+import { getNextNode, getNodePropertyName } from './helpers';
+import { Rule } from 'eslint';
+import RuleFixer = Rule.RuleFixer;
+import RuleContext = Rule.RuleContext;
 
 /**
  * Returns a fixer array that swaps the lines of two nodes
@@ -16,7 +14,8 @@ const {
  * @param {*} nextNode
  * @returns
  */
-const swapLines = (fixer, context, node, nextNode) => {
+const swapLines = (fixer: RuleFixer,
+									 context: RuleContext, node: Rule.Node, nextNode: Rule.Node) => {
 	const fixes = [];
 
 	// get the source code of both lines so we can insert them in the right place
@@ -32,7 +31,7 @@ const swapLines = (fixer, context, node, nextNode) => {
 	return fixes;
 };
 
-const getFixesForLastCalledWithAtEnd = (fixer, context, node, nextNode) => {
+const getFixesForLastCalledWithAtEnd = (fixer: RuleFixer, context: RuleContext, node: Rule.Node, nextNode: Rule.Node) => {
 	// we need to find the last toHaveBeenNthCalledWith
 	let foundLastNthCalledWith = false
 	let tmpNode = nextNode
@@ -58,7 +57,7 @@ const getFixesForLastCalledWithAtEnd = (fixer, context, node, nextNode) => {
 	return fixes
 }
 
-module.exports = {
+export {
 	getFixesForLastCalledWithAtEnd,
 	swapLines,
 };

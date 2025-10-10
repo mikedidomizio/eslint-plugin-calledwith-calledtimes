@@ -17,8 +17,8 @@
 		"lib"
 	],
 	"scripts": {
-        "build": "tsup lib/index.ts --format cjs --out-dir dist",
-        "lint": "npm-run-all \"lint:*\"",
+		"build": "tsup lib/index.ts --format cjs --out-dir dist",
+		"lint": "npm-run-all \"lint:*\"",
 		"lint:eslint-docs": "npm-run-all \"update:eslint-docs -- --check\"",
 		"lint:js": "eslint .",
 		"test": "vitest --run --hideSkippedTests",
@@ -27,10 +27,12 @@
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
 		"stage": "npm run test && npm run prettier:write && npm run lint",
-        "ts": "tsc --noEmit"
+		"ts": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.0.0",
+		"@types/eslint": "^9.6.1",
+		"@types/estree": "^1.0.8",
 		"@typescript-eslint/parser": "^8.46.0",
 		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^9.1.0",
